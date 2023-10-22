@@ -165,7 +165,7 @@ export default function PdfViewer({ filename, id }: Props) {
 	};
 
 	const handleSwipe = () => {
-		const MIN_DISTANCE = 100;
+		const MIN_DISTANCE = 300;
 		if (touchStart - touchEnd > MIN_DISTANCE) {
 			nextPage();
 		}
