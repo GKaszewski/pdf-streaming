@@ -32,7 +32,7 @@ engine = create_engine(DATABASE_URL, connect_args={"check_same_thread": False})
 Base.metadata.create_all(bind=engine)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
-app = FastAPI()
+app = FastAPI(docs_url='/api/docs', redoc_url='/api/redoc')
 origins = [
     'http://localhost:5173',
 ]
