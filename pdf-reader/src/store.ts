@@ -15,6 +15,8 @@ export type AppState = {
 	getPdfById: (id: number) => Pdf | undefined;
 	currentPdf: Pdf | null;
 	setCurrentPdf: (pdf: Pdf | null) => void;
+	apiKey: string;
+	setApiKey: (apiKey: string) => void;
 };
 
 const useAppStore = create<AppState>()(
@@ -48,6 +50,10 @@ const useAppStore = create<AppState>()(
 			currentPdf: null,
 			setCurrentPdf: (pdf: Pdf | null) => {
 				set({ currentPdf: pdf });
+			},
+			apiKey: "",
+			setApiKey: (apiKey: string) => {
+				set({ apiKey });
 			},
 		}),
 		{
