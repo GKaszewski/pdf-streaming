@@ -35,6 +35,7 @@ SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 app = FastAPI(docs_url='/api/docs', redoc_url='/api/redoc', openapi_url='/api/openapi.json')
 origins = [
     'http://localhost:5173',
+    'https://pdf.gabrielkaszewski.dev',
 ]
 
 app.add_middleware(
@@ -60,7 +61,7 @@ def get_db():
         db.close()
 
 
-@app.post("/upload-pdf/", tags=["upload"])
+@app.post("/api/upload-pdf/", tags=["upload"])
 async def upload_pdf(file: UploadFile = File(...), user: str = Depends(get_current_user), db=Depends(get_db)):
     if not file:
         raise HTTPException(status_code=400, detail="File not found")
@@ -80,7 +81,7 @@ async def upload_pdf(file: UploadFile = File(...), user: str = Depends(get_curre
     return {"filename": file.filename}
 
 
-@app.delete("/delete-pdf/{id}", tags=["delete"])
+@app.delete("/api/delete-pdf/{id}", tags=["delete"])
 async def delete_pdf(id: int, user: str = Depends(get_current_user), db=Depends(get_db)):
     db_pdf_file = db.query(PDFFile).filter(PDFFile.id == id).first()
     if not db_pdf_file:
@@ -90,13 +91,13 @@ async def delete_pdf(id: int, user: str = Depends(get_current_user), db=Depends(
     return {"message": "File deleted successfully"}
 
 
-@app.get("/list-pdf/", tags=["list"])
+@app.get("/api/list-pdf/", tags=["list"])
 async def list_pdf(user: str = Depends(get_current_user), db=Depends(get_db)):
     db_pdf_files = db.query(PDFFile).all()
     return db_pdf_files
 
 
-@app.get("/stream-pdf/{id}", tags=["stream"])
+@app.get("/api/stream-pdf/{id}", tags=["stream"])
 async def stream_pdf(id: int, request: Request, db=Depends(get_db)):
     db_pdf_file = db.query(PDFFile).filter(PDFFile.id == id).first()
     if not db_pdf_file:
@@ -133,7 +134,7 @@ async def stream_pdf(id: int, request: Request, db=Depends(get_db)):
     return StreamingResponse(file_reader(start, end), status_code=206, headers=headers)
 
 
-@app.get('/memory-usage', tags=["memory"])
+@app.get('/api/memory-usage', tags=["memory"])
 def read_memory_usage():
     memory_info = process.memory_info()
     return {"Memory Usage": f"{memory_info.rss / (1024 * 1024):.2f} MB"}
