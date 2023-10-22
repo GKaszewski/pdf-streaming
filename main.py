@@ -145,6 +145,7 @@ def log_memory_usage():
         print(f"Memory Usage: {memory_info.rss / (1024 * 1024):.2f} MB")
         time.sleep(10)  # Log every 10 seconds
 
+
 # Start the logging thread
 # logging_thread = threading.Thread(target=log_memory_usage)
 # logging_thread.start()
