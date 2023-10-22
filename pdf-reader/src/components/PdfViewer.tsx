@@ -164,7 +164,7 @@ export default function PdfViewer({ filename, id }: Props) {
 		setCurrentPdf(null);
 	};
 
-	const handleSwipe = (e: React.TouchEvent<HTMLDivElement>) => {
+	const handleSwipe = () => {
 		const MIN_DISTANCE = 100;
 		if (touchStart - touchEnd > MIN_DISTANCE) {
 			nextPage();
@@ -180,7 +180,7 @@ export default function PdfViewer({ filename, id }: Props) {
 
 	const handleTouchEnd = (e: React.TouchEvent<HTMLDivElement>) => {
 		setTouchEnd(e.changedTouches[0].clientX);
-		handleSwipe(e);
+		handleSwipe();
 	};
 
 	const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -189,7 +189,7 @@ export default function PdfViewer({ filename, id }: Props) {
 
 	const handleMouseUp = (e: React.MouseEvent<HTMLDivElement>) => {
 		setTouchEnd(e.clientX);
-		handleSwipe(e as unknown as React.TouchEvent<HTMLDivElement>);
+		handleSwipe();
 	};
 
 	return (
