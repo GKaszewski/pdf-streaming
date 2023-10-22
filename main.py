@@ -148,3 +148,8 @@ def log_memory_usage():
 # Start the logging thread
 # logging_thread = threading.Thread(target=log_memory_usage)
 # logging_thread.start()
+
+if __name__ == "__main__":
+    import uvicorn
+
+    uvicorn.run(app, host="0.0.0.0", port=8000)
