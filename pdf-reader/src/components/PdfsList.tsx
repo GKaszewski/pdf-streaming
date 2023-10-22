@@ -26,6 +26,12 @@ export default function PdfsList() {
 					setLoading(false);
 					return;
 				}
+				if (data.detail === "Not found") {
+					setError("Not found");
+					setLoading(false);
+					_setPdfs(null);
+					return;
+				}
 				_setPdfs(data);
 				const pdfsData = data.map((pdf: Pdf) => {
 					const pdfObj = getPdf(pdf.filename);

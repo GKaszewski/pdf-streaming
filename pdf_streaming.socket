@@ -1,0 +1,8 @@
+[Unit]
+Description=pdf streaming api socket
+
+[Socket]
+ListenStream=/run/pdf-streaming.sock
+
+[Install]
+WantedBy=sockets.target

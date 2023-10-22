@@ -1,0 +1,17 @@
+[Unit]
+Description=pdf streaming backend service
+Requires=pdf_streaming.socket
+After=network.target
+
+[Service]
+User=
+Group=www-data
+WorkingDirectory=/home/USER/pdf_streaming
+ExecStart=/home/USER/pdf_streaming/pdf_streaming/venv/bin/uvicorn main:app \
+            --proxy-headers \
+            --forwarded-allow-ips="*" \
+            --workers 4 \
+            --host unix:/home/USER/pdf_streaming/pdf_streaming.sock
+
+[Install]
+WantedBy=multi-user.target
