@@ -26,7 +26,7 @@ export default function PdfsList() {
 					setLoading(false);
 					return;
 				}
-				if (data.detail === "Not found") {
+				if (data.detail === "Not Found") {
 					setError("Not found");
 					setLoading(false);
 					_setPdfs(null);
