@@ -1,10 +1,11 @@
-FROM node:20-alpine
+FROM node:20-alpine as build-stage
 WORKDIR /code
-COPY package.json /code/package.json
+COPY package.json .
 RUN npm install
 
-COPY . /code/frontend
+COPY . .
+
 RUN npm run build
 RUN echo "Build complete."
 
-COPY /code/frontend/dist /usr/share/nginx/html
+COPY /dist /usr/share/nginx/html
